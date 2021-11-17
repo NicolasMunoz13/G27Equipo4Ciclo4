@@ -1,0 +1,204 @@
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html{
+    margin: 0px auto;
+  }
+  
+  h3{
+    font-family: 'Encode Sans', sans-serif;
+    font-size: 24px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 15px;
+  }
+  
+  .main-wrapper{
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #9053c7;
+    background: linear-gradient(-135deg,#c850c0,#4158d0);
+    background: -webkit-linear-gradient(-135deg,#c850c0,#4158d0);
+    background: -o-linear-gradient(-135deg,#c850c0,#4158d0);
+    background: -moz-linear-gradient(-135deg,#c850c0,#4158d0);
+  }
+  
+  .form-wrapper{
+    width: auto;
+    height: auto;
+    background: white;
+    border-radius: 10px;
+    border: 5px ridge #5a4961;
+    overflow: hidden;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    padding: 20px 95px 10px 95px;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .image-wrapper{
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  .image-wrapper img{
+   width: auto;
+    height: 100%;
+    margin-left: 0px;
+  }
+  
+  input{
+    outline: none;
+    border: none;
+  }
+  
+  input[type=text],
+  input[type=password]{
+    width:auto;
+  }
+  
+  .username{
+    display: flex;
+    width: 100%;
+  }
+  
+  .password{  
+    display: flex;
+    width: 100%;
+  }
+  
+  .icon{
+    padding: 15px 10px 0px 10px;
+    min-width: 20px;
+    text-align: right;
+  }
+  
+  .input-name{
+    font-family: 'Encode Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666;
+    display: block;
+    width: 100%;
+    background: #e6e6e6;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 30px 0 30px;
+    margin-bottom: 20px;
+  }
+  
+  .input-name:focus{
+    border: 3px solid gray;
+  }
+  
+  .input-password{
+    font-family: 'Encode Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666;
+    display: block;
+    width: 100%;
+    background: #e6e6e6;
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 30px 0 30px;
+  }
+  
+  .input-password:focus{
+    border: 3px solid gray;
+  }
+  
+  
+  .login-form-btn{
+    font-family: 'Encode Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    background: #57b846;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    transition: all 0.4s;
+    outline: none;
+    border: none
+  }
+  
+  .form-btn-wrapper{
+    padding-top:25px;
+  }
+  
+  .login-form-btn:hover{
+    background: black;
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  
+  .forget-password{
+    padding-top: 10px;
+    font-family: 'Encode Sans', sans-serif;
+    color: #666;
+  }
+  .text2{
+    color: #666;
+    text-decoration: none;
+  }
+  
+  .pad-t{
+    padding-top: 100px;
+    font-family: 'Encode Sans', sans-serif;
+    color: #666;
+  }
+  
+  .create-user{
+    color: #666;
+    text-decoration: none;
+  }
+  
+  
+  .team-scrum{
+    font-family: 'Encode Sans', sans-serif;
+    color: #333;
+  }
+  
+  footer{
+   background-color:#d3cfcc;
+  
+  }
+
+  .alert{
+      height: 52px;
+      line-height: 45px;
+  }

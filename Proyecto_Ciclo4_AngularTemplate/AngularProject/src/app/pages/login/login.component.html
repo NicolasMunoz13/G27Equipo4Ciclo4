@@ -1,0 +1,51 @@
+<div class = "main-wrapper">
+
+  <div class = "form-wrapper" style="text-align: center;">
+    <div class = "image-wrapper">
+      <img class="image-congf" src = "https://cdn.pixabay.com/photo/2019/04/26/07/14/store-4156934_960_720.png" alt="IMG" width="300px" height="200.6px">
+    </div>
+    <form>
+      <h3>Bienvenido<br/><br/>Inicia Sesion</h3>
+      <div class="username" data-validate="No olvides ingresar tu usuario">
+        <i class="fa fa-user icon"></i>
+        <input class="input-name" type="text" name="user" placeholder="Ingresa tu usuario" [(ngModel)]="user"  required>
+      </div>
+      <div class="password" data-validate="No olvides ingrsar tu contraseña">
+        <i class="fa fa-lock icon"></i>
+        <input class="input-password" type="password" name="passw" placeholder="Ingresa tu contraseña" [(ngModel)]="pass"  required>
+      </div>
+      <div class="form-btn-wrapper">
+        <button (click)="comparar()" class="login-form-btn" type="submit">Ingresar</button>
+      </div>
+      <div class="form-btn2-wrapper">
+      </div>
+      <div class="forget-password">
+        <span class="text1">Olvidaste tu</span>
+        <a class="text2" href=""><strong>Usuario/contraseña</strong></a>
+      </div>
+      <br/>
+      <br/>
+      <div  class="animate__animated animate__fadeIn" *ngIf="data_correct==1" class="alert alert-success" role="alert">
+        Usuario Registrado
+      </div>
+      <div class="animate__animated animate__fadeIn" *ngIf="data_correct==0" class="alert alert-danger" role="alert">
+        Usuario o Contraseña incorrectas!
+      </div>
+      <div class="user-log pad-t">
+        <a class = "create-user" href=""><strong>Crea tu cuenta</strong></a>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div class="footer-text">
+  
+  <footer class="team-scrum" style="text-align: center;">
+    Desarrollado por equipo SCRUM 4 &nbsp;&nbsp;
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+  </footer>
+
+</div>

@@ -1,0 +1,32 @@
+
+  <div class="text-center">
+    <input class="form-control" type="file" accept=".csv" (change)="onChange($event)">
+
+    <button (click)="onUpload()" class="btn btn-success">
+      Upload
+    </button>
+    {{recibido}}
+  </div>
+<hr/>
+<table class="compact nowrap table table-dark table-hover">
+  <thead>
+    <tr>
+      <th class="text-center">Codigo Producto</th>
+      <th class="text-center">IVA</th>
+      <th class="text-center">Nit proveedor</th>
+      <th class="text-center">Nombre Producto</th>
+      <th class="text-center">Precio Compra</th>
+      <th class="text-center">Codigo Venta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of contenido">
+      <td class="text-center">{{producto.codigoproducto}}</td>
+      <td class="text-center">{{producto.ivacompra}}</td>
+      <td class="text-center">{{producto.nitproveedor}}</td>
+      <td class="text-center">{{producto.nombreproducto}}</td>
+      <td class="text-center">{{producto.preciocompra}}</td>
+      <td class="text-center">{{producto.precioventa}}</td>
+    </tr>
+  </tbody>
+</table>
