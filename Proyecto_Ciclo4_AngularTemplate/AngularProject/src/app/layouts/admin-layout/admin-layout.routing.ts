@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { LoginComponent } from '../../pages/login/login.component';
 import { ProductosComponent } from 'app/pages/productos/productos.component';
+import { ClientesComponent } from '../../pages/clientes/clientes.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -21,5 +22,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login',          component: LoginComponent},
     { path: 'productos',      component: ProductosComponent },
-
+    { path: 'clientes',       component: ClientesComponent}
 ];
