@@ -1,6 +1,7 @@
 package com.equipo4.misiontic2022.tiendasgenericas.tiendaelmercado.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "clientes")
@@ -9,109 +10,73 @@ public class Cliente {
 	@Id
 	private String id;
 	
-	private Long cedula;
-	private String nombrecompleto;
+	@Indexed(unique=true)
+	private long cedulacliente;
 	private String direccioncliente;
-	private Integer telefonocliente;
-	private String correocliente;
+	private String emailcliente;
+	private String nombrecliente;
+	private String telefonocliente;
 	
-	public Cliente(){
+	public Cliente() {
 		
 	}
 
-	public Cliente(Long cedula, String nombrecompleto, String direccioncliente, Integer telefonocliente,
-			String correocliente) {
+	public Cliente(long cedulacliente, String direccioncliente, String emailcliente, String nombrecliente,
+			String telefonocliente) {
 		super();
-		this.cedula = cedula;
-		this.nombrecompleto = nombrecompleto;
+		this.cedulacliente = cedulacliente;
 		this.direccioncliente = direccioncliente;
+		this.emailcliente = emailcliente;
+		this.nombrecliente = nombrecliente;
 		this.telefonocliente = telefonocliente;
-		this.correocliente = correocliente;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public String getId() {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return the cedula
-	 */
-	public Long getCedula() {
-		return cedula;
+	public long getCedulacliente() {
+		return cedulacliente;
 	}
 
-	/**
-	 * @param cedula the cedula to set
-	 */
-	public void setCedula(Long cedula) {
-		this.cedula = cedula;
+	public void setCedulacliente(long cedulacliente) {
+		this.cedulacliente = cedulacliente;
 	}
 
-	/**
-	 * @return the nombrecompleto
-	 */
-	public String getNombrecompleto() {
-		return nombrecompleto;
-	}
-
-	/**
-	 * @param nombrecompleto the nombrecompleto to set
-	 */
-	public void setNombrecompleto(String nombrecompleto) {
-		this.nombrecompleto = nombrecompleto;
-	}
-
-	/**
-	 * @return the direccioncliente
-	 */
 	public String getDireccioncliente() {
 		return direccioncliente;
 	}
 
-	/**
-	 * @param direccioncliente the direccioncliente to set
-	 */
 	public void setDireccioncliente(String direccioncliente) {
 		this.direccioncliente = direccioncliente;
 	}
 
-	/**
-	 * @return the telefonocliente
-	 */
-	public Integer getTelefonocliente() {
+	public String getEmailcliente() {
+		return emailcliente;
+	}
+
+	public void setEmailcliente(String emailcliente) {
+		this.emailcliente = emailcliente;
+	}
+
+	public String getNombrecliente() {
+		return nombrecliente;
+	}
+
+	public void setNombrecliente(String nombrecliente) {
+		this.nombrecliente = nombrecliente;
+	}
+
+	public String getTelefonocliente() {
 		return telefonocliente;
 	}
 
-	/**
-	 * @param telefonocliente the telefonocliente to set
-	 */
-	public void setTelefonocliente(Integer telefonocliente) {
+	public void setTelefonocliente(String telefonocliente) {
 		this.telefonocliente = telefonocliente;
 	}
-
-	/**
-	 * @return the correocliente
-	 */
-	public String getCorreocliente() {
-		return correocliente;
-	}
-
-	/**
-	 * @param correocliente the correocliente to set
-	 */
-	public void setCorreocliente(String correocliente) {
-		this.correocliente = correocliente;
-	}
-	
 	
 }

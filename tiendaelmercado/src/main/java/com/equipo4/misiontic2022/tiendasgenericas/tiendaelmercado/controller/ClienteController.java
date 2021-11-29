@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,14 +33,14 @@ public class ClienteController {
 		
 	
 	@GetMapping("/clientes")
-	public ResponseEntity<List<Cliente>> getAllClientes(@RequestParam(required = false) Long cedula) {
+	public ResponseEntity<List<Cliente>> getAllClientes(@RequestParam(required = false) String nombrecliente) {
 		try {
 			List<Cliente> clientes = new ArrayList<Cliente>();
 
-			if (cedula == null) {
+			if (nombrecliente == null) {
 				clienteRepository.findAll().forEach(clientes::add);
 			} else {
-				clienteRepository.findByCedula(cedula).forEach(clientes::add);
+				clienteRepository.findByNombrecliente(nombrecliente).forEach(clientes::add);
 			}
 
 			if (clientes.isEmpty()) {
@@ -54,9 +55,47 @@ public class ClienteController {
 	}
 	
 	
-	@GetMapping("/clientes/{id}")
+	@GetMapping("/clientes/id/{id}")
 	public ResponseEntity<Cliente> getClienteById(@PathVariable("id") String id) {
 		Optional<Cliente> clienteData = clienteRepository.findById(id);
+
+		if (clienteData.isPresent()) {
+			return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@GetMapping("/clientes/nombre/{nombre}")
+	public ResponseEntity<Cliente> getClienteByNombrecliente(@PathVariable("nombre") String nombre) {
+		Cliente aux=clienteRepository.findByNombrecliente(nombre).get(0);
+		Optional<Cliente> clienteData =  Optional.of(aux);
+
+		if (clienteData.isPresent()) {
+			return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@GetMapping("/clientes/email/{email}")
+	public ResponseEntity<Cliente> getClienteByEmailcliente(@PathVariable("email") String email) {
+		Cliente aux=clienteRepository.findByEmailcliente(email).get(0);
+		Optional<Cliente> clienteData =  Optional.of(aux);
+
+		if (clienteData.isPresent()) {
+			return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/clientes/cedula/{cedula}")
+	public ResponseEntity<Cliente> getClienteByCedula(@PathVariable("cedula") Long cedula) {
+		Cliente aux=clienteRepository.findByCedulacliente(cedula).get(0);
+		Optional<Cliente> clienteData =  Optional.of(aux);
 
 		if (clienteData.isPresent()) {
 			return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
@@ -70,26 +109,34 @@ public class ClienteController {
 	public ResponseEntity<Cliente> createCliente(@RequestBody Cliente client) {
 		try {
 			Cliente _cliente = clienteRepository.save(
-					new Cliente(client.getCedula(), client.getNombrecompleto(), client.getDireccioncliente(),
-							client.getTelefonocliente(), client.getCorreocliente()));
+					new Cliente(
+							client.getCedulacliente(),
+							client.getDireccioncliente(),
+							client.getEmailcliente(),
+							client.getNombrecliente(),
+							client.getTelefonocliente()));
 			return new ResponseEntity<>(_cliente, HttpStatus.CREATED);
-		} catch (Exception e) {
+		} catch (DuplicateKeyException e) {
+			return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+		}catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	
-	@PutMapping("/clientes/{id}")
-	public ResponseEntity<Cliente> updateCliente(@PathVariable("id") String id, @RequestBody Cliente client) {
+	@PutMapping("/clientes/id/{id}")
+	public ResponseEntity<Cliente> updateClienteById(@PathVariable("id") String id, @RequestBody Cliente client) {
 		Optional<Cliente> clienteData = clienteRepository.findById(id);
 
 		if (clienteData.isPresent()) {
 			Cliente _cliente = clienteData.get();
-			_cliente.setCedula(client.getCedula());
-			_cliente.setNombrecompleto(client.getNombrecompleto());
+			_cliente.setCedulacliente(client.getCedulacliente());
 			_cliente.setDireccioncliente(client.getDireccioncliente());
+			_cliente.setEmailcliente(client.getEmailcliente());
+			_cliente.setNombrecliente(client.getNombrecliente());
 			_cliente.setTelefonocliente(client.getTelefonocliente());
-			_cliente.setCorreocliente(client.getCorreocliente());
+
 			
 			return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
 		} else {
@@ -98,19 +145,69 @@ public class ClienteController {
 	}
 	
 	
-	@DeleteMapping("/clientes/{id}")
-	public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("id") String id) {
+	@PutMapping("/clientes/cedula/{cedula}")
+	public ResponseEntity<Cliente> updateClienteByCedula(@PathVariable("cedula") long cedula, @RequestBody Cliente client) {
+		Cliente aux=clienteRepository.findByCedulacliente(cedula).get(0);
+		Optional<Cliente> clienteData =  Optional.of(aux);
+
+		if (clienteData.isPresent()) {
+			Cliente _cliente = clienteData.get();
+			_cliente.setCedulacliente(client.getCedulacliente());
+			_cliente.setDireccioncliente(client.getDireccioncliente());
+			_cliente.setEmailcliente(client.getEmailcliente());
+			_cliente.setNombrecliente(client.getNombrecliente());
+			_cliente.setTelefonocliente(client.getTelefonocliente());
+
+			
+			return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
+	@DeleteMapping("/clientes/id/{id}")
+	public ResponseEntity<HttpStatus> deleteClientesById(@PathVariable("id") String id) {
 		try {
 			clienteRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping("/clientes/cedula/{cedula}")
+	public ResponseEntity<HttpStatus> deleteClientesByCedula(@PathVariable("cedula") long cedula) {
+		try {
+			clienteRepository.deleteByCedulacliente(cedula);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping("/clientes/nombre/{nombre}")
+	public ResponseEntity<HttpStatus> deleteClientesByNombre(@PathVariable("nombre") String nombre) {
+		try {
+			clienteRepository.deleteByNombrecliente(nombre);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@DeleteMapping("/clientes/email/{email}")
+	public ResponseEntity<HttpStatus> deleteClientesByEmail(@PathVariable("email") String email) {
+		try {
+			clienteRepository.deleteByEmailcliente(email);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	
 	@DeleteMapping("/clientes")
-	public ResponseEntity<HttpStatus> deleteAllClientes() {
+	public ResponseEntity<HttpStatus> deleteAllClientess() {
 		try {
 			clienteRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -118,13 +215,13 @@ public class ClienteController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	@GetMapping("/clientes?cedula={cedula}")
-	public ResponseEntity<List<Cliente>> findByCedula(@PathVariable("cedula") Long cedula){
+
+	@GetMapping("/clientes/{clientname}")
+	public ResponseEntity<List<Cliente>> findByNombrecliente(@PathVariable("clientname") String nombre) {
 		try {
-			List<Cliente> clientes = clienteRepository.findByCedula(cedula);
-			
-			if(clientes.isEmpty()) {
+			List<Cliente> clientes = clienteRepository.findByNombrecliente(nombre);
+
+			if (clientes.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<>(clientes, HttpStatus.OK);
